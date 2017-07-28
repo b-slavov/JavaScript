@@ -1,0 +1,1 @@
+![alt text](https://github.com/b-slavov/JavaScript/blob/master/currency-input/img.png "Currency Input Preview")
