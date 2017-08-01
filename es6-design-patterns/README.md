@@ -1,4 +1,5 @@
-# ES6 Design Patterns
+<a name="es6-design-patterns"></a>
+# [ES6 Design Patterns](#es6-design-patterns)
 
 ### [Creational](#creational)
 
@@ -134,6 +135,8 @@ function init_AbstractFactory() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="builder"></a>
 ### [Builder](#builder)
 
@@ -196,6 +199,8 @@ function init_Builder() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="factory-method"></a>
 ### [Factory Method](#factory-method)
 
@@ -244,6 +249,8 @@ function init_FactoryMethod() {
     factory.AnOperation()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="prototype"></a>
 ### [Prototype](#prototype)
@@ -302,6 +309,8 @@ function init_Prototype() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="singleton"></a>
 ### [Singleton](#singleton)
 
@@ -340,6 +349,8 @@ function init_Singleton() {
     facade.log(singleton1 === singleton2)
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="structural"></a>
 ## [Structural](#structural)
@@ -398,6 +409,8 @@ function init_Adapter() {
     f.Request()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="bridge"></a>
 ### [Bridge](#bridge)
@@ -470,6 +483,8 @@ function init_Bridge() {
     abstraction.Operation()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="composite"></a>
 ### [Composite](#composite)
@@ -545,6 +560,8 @@ function init_Composite() {
     composite2.Operation()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="decorator"></a>
 ### [Decorator](#decorator)
@@ -626,6 +643,8 @@ function init_Decorator() {
     decoratorB.AddedBehavior()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="facade"></a>
 ### [Facade](#facade)
@@ -776,6 +795,8 @@ class Facade {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="flyweight"></a>
 ### [Flyweight](#flyweight)
 
@@ -854,6 +875,8 @@ function init_Flyweight() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="proxy"></a>
 ### [Proxy](#proxy)
 
@@ -896,6 +919,8 @@ function init_Proxy() {
     proxy.Request()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="behavioral"></a>
 ## [Behavioral](#behavioral)
@@ -953,6 +978,8 @@ function init_ChainofResponsibility() {
 
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="command"></a>
 ### [Command](#command)
@@ -1013,6 +1040,8 @@ function init_Command() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="interpreter"></a>
 ### [Interpreter](#interpreter)
 
@@ -1068,6 +1097,8 @@ function init_Interpreter() {
     facade.log('Not implemented')
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="iterator"></a>
 ### [Iterator](#iterator)
@@ -1143,6 +1174,8 @@ function init_Iterator() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="mediator"></a>
 ### [Mediator](#mediator)
 
@@ -1203,6 +1236,7 @@ class ConcreteColleague1 extends Colleague {
         this.Changed()
     }
 }
+
 class ConcreteColleague2 extends Colleague {
     constructor(mediator) {
         super()
@@ -1224,6 +1258,8 @@ function init_Mediator() {
     mediator.colleague1.setFeature('new feature 1')
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="memento"></a>
 ### [Memento](#memento)
@@ -1289,6 +1325,8 @@ function init_Memento() {
     facade.log(originator.state)
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="observer"></a>
 ### [Observer](#observer)
@@ -1370,6 +1408,8 @@ function init_Observer() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="state"></a>
 ### [State](#state)
 
@@ -1430,6 +1470,8 @@ function init_State() {
     context.Request()
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="strategy"></a>
 ### [Strategy](#strategy)
@@ -1494,6 +1536,8 @@ function init_Strategy() {
 }
 ```
 
+[⬆ back to top](#es6-design-patterns)
+
 <a name="template-method"></a>
 ### [Template Method](#template-method)
 
@@ -1536,6 +1580,8 @@ function init_TemplateMethod() {
     class1.TemplateMethod()
 }  
 ```
+
+[⬆ back to top](#es6-design-patterns)
 
 <a name="visitor"></a>
 ### [Visitor](#visitor)
@@ -1640,3 +1686,5 @@ function init_Visitor() {
     elementB.Accept(visitor2)
 }
 ```
+
+[⬆ back to top](#es6-design-patterns)
