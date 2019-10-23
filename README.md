@@ -145,7 +145,7 @@ The reversed flow - when the event starts from the top element and goes to the t
  * ```<ul #parent-list>```
  * ```<li #post-1>```
 
-```
+```javascript
 let parent = document.getElementById('parent-list')
 let child = document.getElementById('post-1');
 
@@ -189,7 +189,7 @@ article::before {
   content: attr(data-parent);
 }
 
-rticle[data-columns='3'] {
+article[data-columns='3'] {
   width: 400px;
 }
 
@@ -212,17 +212,17 @@ Attaches `this` into a function and executes the function immediately:
 
 ```javascript
 let person = {  
-  name: 'John Snow',
-  hello: function(arg) {
-    alert(this.name + ' says hello, ' + arg);
-  }
-};
+    name: 'John Snow',
+    hello: function(arg) {
+        alert(this.name + ' says hello, ' + arg)
+    }
+}
 
 // John Snow says hello, Winterfell
-person.hello('Winterfell');
+person.hello('Winterfell')
 
 // Robb Stark says hello, Winterfell
-person.hello.call({ name: 'Robb Stark' }, 'Winterfell');
+person.hello.call({ name: 'Robb Stark' }, 'Winterfell')
 ```
 
 ### `apply()`
@@ -230,18 +230,18 @@ person.hello.call({ name: 'Robb Stark' }, 'Winterfell');
 `apply()` is similar to `call()`, except that it takes an array-like object instead of listing the arguments out one at a time:
 
 ```javascript
-let person = {  
-   name: 'Daenerys Targaryen',
-   hello: function() {
-     alert(this.name + ' says hello, ' + arguments[1]);
-   }
-};
+let person = {
+    name: 'Daenerys Targaryen',
+    hello: function() {
+        alert(this.name + ' says hello, ' + arguments[1])
+    }
+}
 
 // Daenerys Targaryen says hello, Missandei
-person.hello('Grey Worm', 'Missandei');
+person.hello('Grey Worm', 'Missandei')
 
 // Arya Stark says hello, Sandor Clegane
-person.hello.apply({ name: 'Arya Stark' }, ['Brienne of Tarth', 'Sandor Clegane']);
+person.hello.apply({ name: 'Arya Stark' }, ['Brienne of Tarth', 'Sandor Clegane'])
 ```
 
 ### `bind()`
@@ -249,18 +249,18 @@ person.hello.apply({ name: 'Arya Stark' }, ['Brienne of Tarth', 'Sandor Clegane'
 Attaches `this` into a function and it needs to be invoked separately:
 
 ```javascript
-let person = {  
-  name: 'Jaime Llannister',
-  hello: function(arg) {
-    alert(this.name + ' says hello, ' + arg);
-  }
-};
+let person = {
+    name: 'Jaime Llannister',
+    hello: function(arg) {
+        alert(this.name + ' says hello, ' + arg)
+    }
+}
 
 // 'Jaime Llannister says hello, Casterly Rock'
-person.hello('Casterly Rock');
+person.hello('Casterly Rock')
 
 // 'Tyrion Llannister says hello, Casterly Rock'
-person.hello.bind({ name: 'Tyrion Llannister' }, 'Casterly Rock')();
+person.hello.bind({ name: 'Tyrion Llannister' }, 'Casterly Rock')()
 ```
 
 ## Callback function
@@ -271,15 +271,15 @@ Here is a synchronous callback example, as it is executed immediately:
 
 ```javascript
 function greeting(name) {
-  alert('Hello ' + name);
+    alert('Hello ' + name)
 }
 
 function processUserInput(callback) {
-  let name = prompt('Please, enter your name.');
-  callback(name);
+    let name = prompt('Please, enter your name.')
+    callback(name)
 }
 
-processUserInput(greeting);
+processUserInput(greeting)
 ```
 
 ## Promises
@@ -290,53 +290,53 @@ Async code is generally better for performance and flexibility. You can trigger 
 
 ```javascript
 function getUrl(url) {
-  return new Promise(function (resolve, reject) {
-    let request = new XMLHttpRequest();
-    request.open('GET', url);
+    return new Promise(function (resolve, reject) {
+        let request = new XMLHttpRequest()
+        request.open('GET', url)
 
-    request.onload = function() {
-      if (request.status == 200) {
-        resolve(request.response);
-      } else {
-        reject(Error(request.statusText));
-      }
-    };
+        request.onload = function() {
+            if (request.status == 200) {
+                resolve(request.response)
+            } else {
+                reject(Error(request.statusText))
+            }
+        }
 
-    request.onerror = function() {
-      reject(Error("Network Error"));
-    };
+        request.onerror = function() {
+            reject(Error("Network Error"))
+        }
 
-    request.send();
-  });
+        request.send()
+    })
 }
 
 getUrl('story.json').then(function (response) {
-  console.log("Success!", response);
+    console.log("Success!", response)
 }, function(error) {
-  console.error("Failed!", error);
-});
+    console.error("Failed!", error)
+})
 ```
 
 Sometimes you don't need to complete an async tasks within the promise. If it's possible an async action will be taken. Returning a promise will be best, so you can always count on a promise, coming out of a given function. In that case you can simply call `Promise.resolve()` or `Promise.reject()` **without** using the `new` keyword.
 
 ```javascript
-let userCache = {};
+let userCache = {}
 
 function getUserDetail(username) {
-  // If data is cached or not, a promise will be returned!
-  if (userCache[username]) {
-    return Promise.resolve(userCache[username]);
-  }
+    // If data is cached or not, a promise will be returned!
+    if (userCache[username]) {
+        return Promise.resolve(userCache[username])
+    }
 
-  // Use the fetch API, which returns a promise, to get the information.
-  return fetch('users/' + username + '.json')
-    .then(function(result) {
-      userCache[username] = result;
-      return result;
-    })
-    .catch(function() {
-      throw new Error('Could not find user: ' + username);
-    });
+    // Use the fetch API, which returns a promise, to get the information.
+    return fetch('users/' + username + '.json')
+        .then(function(result) {
+            userCache[username] = result
+            return result
+        })
+        .catch(function() {
+            throw new Error('Could not find user: ' + username)
+        })
 }
 ```
 
@@ -348,14 +348,14 @@ All promise instances get a `then` method which allows you to react to the promi
 
 ```javascript
 new Promise(function (resolve, reject) {
-	// A mock async action using setTimeout
-	setTimeout(function () {
-      resolve(10);
-    }, 3000);
+    // A mock async action using setTimeout
+    setTimeout(function () {
+        resolve(10)
+    }, 3000)
 })
 .then(function(result) {
-	console.log(result);
-});
+    console.log(result)
+})
 
 // 10
 ```
@@ -366,20 +366,20 @@ The `then` callback is triggered when the promise is resolved.  You can also cha
 new Promise(function (resolve, reject) { 
 	// A mock async action using setTimeout
 	setTimeout(function () {
-      resolve(10);
-    }, 3000);
+      resolve(10)
+    }, 3000)
 })
 .then(function (num) {
-  console.log('first then: ', num);
-  return num * 2;
+    console.log('first then: ', num)
+    return num * 2
 })
 .then(function (num) {
-  console.log('second then: ', num);
-  return num * 2;
+    console.log('second then: ', num)
+    return num * 2
 })
 .then(function (num) {
-  console.log('last then: ', num);
-});
+    console.log('last then: ', num)
+})
 
 // first then: 10
 // second then: 20
@@ -394,17 +394,17 @@ The `catch` callback is executed when the promise is rejected:
 
 ```javascript
 new Promise(function (resolve, reject) {
-	// A mock async action using setTimeout
-	setTimeout(function () {
-      reject('Done!');
-    }, 3000);
+    // A mock async action using setTimeout
+    setTimeout(function () {
+        reject('Done!')
+    }, 3000)
 })
 .then(function(e) {
-  console.log('done', e);
+    console.log('done', e)
 })
 .catch(function(e) {
-  console.log('catch: ', e);
-});
+    console.log('catch: ', e)
+})
 
 // 'catch: Done!'
 ```
@@ -412,7 +412,7 @@ new Promise(function (resolve, reject) {
 What you provide to the `reject` method is up to you. A frequent pattern is sending an `Error` to the `catch`:
 
 ```javascript
-reject(Error('Data could not be found!'));
+reject(Error('Data could not be found!'))
 ```
 
 ### `Promise.all`
@@ -421,11 +421,11 @@ There are cases when you trigger multiple `async` interactions, but only want to
 
 ```javascript
 Promise.all([promise1, promise2]).then(function (results) {
-	// Both promises resolved
+    // Both promises resolved
 })
 .catch(function (error) {
-	// One or more promises was rejected
-});
+    // One or more promises was rejected
+})
 ```
 
 An perfect way of thinking about `Promise.all` is firing off multiple ajax (via fetch) requests at one time:
@@ -435,31 +435,31 @@ let request1 = fetch('/users.json');
 let request2 = fetch('/articles.json');
 
 Promise.all([request1, request2]).then(function (results) {
-	// Both promises done!
-});
+    // Both promises done!
+})
 ```
 
 Dealing with rejection is hard. If any promise is rejected, the `catch` fires for the first rejection:
 
 ```javascript
 let request1 = new Promise(function (resolve, reject) { 
-	// A mock async action using setTimeout
-	setTimeout(function () {
-      resolve('First!');
-    }, 4000);
-});
+    // A mock async action using setTimeout
+    setTimeout(function () {
+        resolve('First!')
+    }, 4000)
+})
 let request2 = new Promise(function (resolve, reject) { 
-	// A mock async action using setTimeout
-	setTimeout(function () {
-      reject('Second!');
-    }, 3000);
-});
+    // A mock async action using setTimeout
+    setTimeout(function () {
+        reject('Second!')
+    }, 3000)
+})
 
 Promise.all([request1, request2]).then(function (results) {
-	console.log('Then: ', results);
+    console.log('Then: ', results)
 }).catch(function(e) {
-	console.log('Catch: ', e);
-});
+    console.log('Catch: ', e)
+})
 
 // Catch: Second!
 ```
@@ -470,23 +470,23 @@ Instead of waiting for all promises to be resolved or rejected, `Promise.race` t
 
 ```javascript
 let request1 = new Promise(function (resolve, reject) { 
-	// A mock async action using setTimeout
-	setTimeout(function () {
-      resolve('First!');
-    }, 8000);
+    // A mock async action using setTimeout
+    setTimeout(function () {
+        resolve('First!')
+    }, 8000)
 });
 let request2 = new Promise(function (resolve, reject) { 
-	// A mock async action using setTimeout
-	setTimeout(function () {
-      resolve('Second!');
-    }, 3000);
-});
+    // A mock async action using setTimeout
+    setTimeout(function () {
+        resolve('Second!')
+    }, 3000)
+})
 
 Promise.race([request1, request2]).then(function (one) {
-	console.log('Then: ', one);
+    console.log('Then: ', one)
 }).catch(function(one, two) {
-	console.log('Catch: ', one);
-});
+    console.log('Catch: ', one)
+})
 
 // Then: Second!
 ```
@@ -509,8 +509,8 @@ Each instance is independent and has its own state and behavior. Function constr
 
 ```javascript
 function Animal(name, age) {
-	this.name = name; 
-	this.age = age;
+    this.name = name; 
+    this.age = age;
 }
 var dog = new Animal('Rex', 5);
 console.log(dog.name); // logs: Rex
@@ -525,12 +525,12 @@ JavaScript is prototype-oriented programming language. Every object has a protot
 ```javascript
 // Adding repeat method to the String type
 String.prototype.repeat = function (count) {
-  var str = '';
-  var pattern = String(this);
-  var i;
-  if (!count) { return pattern; }
-  for (i = 0; i < count; i += 1) { str += pattern; }
-  return str;
+    var str = '';
+    var pattern = String(this);
+    var i;
+    if (!count) { return pattern; }
+    for (i = 0; i < count; i += 1) { str += pattern; }
+    return str;
 };
 
 console.log('-'.repeat(5)); // logs: -----
@@ -542,10 +542,10 @@ Objects can also define custom state (custom properties that only instances of t
 
 ```javascript
 function Animal(name, age) {
-	this.name = name; 
-	this.age = age;
-	this.info = function() {
-    	console.log('Name: ' + this.name + '\nAge: ' + this.age);
+    this.name = name; 
+    this.age = age;
+    this.info = function() {
+        console.log('Name: ' + this.name + '\nAge: ' + this.age);
     }
 }
 var dog = new Animal('Rex', 5);
@@ -559,9 +559,9 @@ Attaching methods inside the object constructor is a tricky operation. It is slo
 
 ```javascript
 function Constr(name, age) {
-	this.m = function() { 
-    // ...
-  }
+    this.m = function() { 
+        // ...
+    }
 }
 var x = new Constr();
 var y = new Constr();
@@ -574,7 +574,7 @@ Attach methods to the prototype of the constructor.
 
 ```javascript
 function Animal(name, age) {
-	// ...
+    // ...
 }
 Animal.prototype.info =  function() {
     // ...
@@ -610,15 +610,15 @@ JavaScript supports properties and there are two ways to create them:
 
 ```javascript
 Object.defineProperty(Animal.prototype, 'name', {
-	get: function () {
-    	return this._name;
-  	},
-  	set: function (name) {
+    get: function () {
+        return this._name;
+    },
+    set: function (name) {
     	if (!validateName(name)) {
-      		throw new Error('Name is invalid');
+	    throw new Error('Name is invalid');
     	}
     	this._name = name;
-  	}
+    }
 });
 // Calling the setter
 dog.name = 'Rex';
@@ -637,10 +637,10 @@ It is a special kind of object, available everywhere in JavaScript. Yet it has a
 
 ```javascript
 function Animal(name) {
-	this.name = name;
-	this.getName = function getAnimalName() {
-		return this.name; // Here this means the Animal object
-	}
+    this.name = name;
+    this.getName = function getAnimalName() {
+        return this.name; // Here this means the Animal object
+    }
 } 
 var dog = new Animal('Rex');
 ```
@@ -649,28 +649,28 @@ var dog = new Animal('Rex');
 
 ```javascript
 function Rect(x, y, width, height) {
-	this.x = x;
-	this.y = y;
-	this.width = width;
-	this.height = height;
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
 }
 Rect.prototype = {
-	calcArea: function () {
-    	return this.width * this.height; // Here this means the Rect object
+    calcArea: function () {
+        return this.width * this.height; // Here this means the Rect object
     },
     calcPerimeter: function () {
-    	return 2 * (this.width + this.height);
+        return 2 * (this.width + this.height);
     }
 };
 var rect = new Rect(50, 55, 15, 10);
-var calcRectArea = rect.calcArea(); // It is ok, because the calcArea method is attached
-									// to the rect object. The method is called through
-                                    // rect's context and then 'this' is pointing to rect.
-                                    // The result is 150.
+var calcRectArea = rect.calcArea();       // It is ok, because the calcArea method is attached
+                                          // to the rect object. The method is called through
+                                          // rect's context and then 'this' is pointing to rect.
+                                          // The result is 150.
 console.log(calcRectArea);
-// var calcRectArea = rect.calcArea; // We return only the function.
-// console.log(calcRectArea()); 	 // It is called in the context of 'window'.
-									 // The result is 'NaN'.
+// var calcRectArea = rect.calcArea;      // We return only the function.
+// console.log(calcRectArea());           // It is called in the context of 'window'.
+                                          // The result is 'NaN'.
 // console.log(calcRectArea.call(rect));  // The result is 150.
 ```
 
@@ -680,11 +680,11 @@ JavaScript cannot limit function to be used only as constructors. The only way t
 
 ```javascript
 function Person(name) {
-	var self = this;
-	self.name = name;
-	self.getName = function getPersonName() {
-		return self.name;
-	}
+    var self = this;
+    self.name = name;
+    self.getName = function getPersonName() {
+        return self.name;
+    }
 } 
 var person = Person('Peter'); // Without 'new', the function is attached to the 'window'.
 ```
@@ -695,8 +695,8 @@ var person = Person('Peter'); // Without 'new', the function is attached to the 
 
 ```javascript
 function Person(name, age) {
-	if (!(this instanceof Person)) {
-    	return new Person(name, age);
+    if (!(this instanceof Person)) {
+        return new Person(name, age);
     }
     this.name = name;
     this.age = age;
@@ -711,9 +711,9 @@ Put inside a module, function constructors introduces better abstraction of the 
 
 ```javascript
 var Person = (function () {
-	function Person(name) { /* … */ }
-	Person.prototype.walk = function (distance) { /*...*/ };
-	return Person;
+    function Person(name) { /* … */ }
+    Person.prototype.walk = function (distance) { /*...*/ };
+        return Person;
 }());
 ```
 
@@ -723,30 +723,30 @@ When a function constructor is wrapped inside a module, the module can contain h
 
 ```javascript
 var Rect = (function () {
-	function validatePosition() { /* … */ }
-	function Rect(x, y, width, height) {
-    	var isPositionValid = validatePosition.call(this);
-    	if (!isPositionValid) {
-      		throw new Error('Invalid Rect position');
+    function validatePosition() { /* … */ }
+    function Rect(x, y, width, height) {
+        var isPositionValid = validatePosition.call(this);
+        if (!isPositionValid) {
+            throw new Error('Invalid Rect position');
     	}
-	}
-	Rect.prototype = { /* … */ };
-	return Rect;
+    }
+    Rect.prototype = { /* … */ };
+    return Rect;
 }());
 ```
 
 ```javascript
 var Car = (function () {
-	var engine = {
-    	start: function () {
-        	console.log('Engine started!');
+    var engine = {
+        start: function () {
+            console.log('Engine started!');
         }
     }
     function startCar() {
-    	engine.start();
+        engine.start();
     }
     return {
-    	start: startCar
+        start: startCar
     }
 }());
 Car.start();
@@ -768,26 +768,26 @@ All instances of type Student are also of type Person and have Person functional
 
 ```javascript
 (function() {
-	var Shape = (function() {
-    	function Shape(x, y) {
-        	this._x = x;
+    var Shape = (function() {
+        function Shape(x, y) {
+            this._x = x;
             this._y = y;
         }
         Shape.prototype.move = function(to) {
-        	this._x = to.x || this._x;
+            this._x = to.x || this._x;
             this._y = to.y || this._y;
         }
     	return Shape;
     }());
     var Rect = (function() {
     	function Rect(x, y, width, height) {
-        	Shape.call(this, x, y);
-        	this._width = width;
+            Shape.call(this, x, y);
+            this._width = width;
             this._height = height;
         }
         Rect.prototype = new Shape();
         Rect.prototype.calcArea = function() {
-        	return this._width * this._height;
+            return this._width * this._height;
         }
     	return Rect;
     }());
@@ -804,17 +804,17 @@ JavaScript has no direct way of calling its parent methods. Function constructor
 
 ```javascript
 var Shapes = (function() { // Defining "namespace" Shapes (module, containing smaller modules)
-	var Shape = (function() {
-    	function Shape(x, y) {
-        	this._x = x;
+    var Shape = (function() {
+        function Shape(x, y) {
+            this._x = x;
             this._y = y;
         }
         Shape.prototype = {
-        	serialize: function() {
-            	var serializedShape = {
-            		x: this._x,
-                	y: this._y
-				};
+            serialize: function() {
+                var serializedShape = {
+            	    x: this._x,
+                    y: this._y
+	        };
             	return serializedShape;
             }
         };
@@ -822,16 +822,16 @@ var Shapes = (function() { // Defining "namespace" Shapes (module, containing sm
     }());
     var Rect = (function() {
     	function Rect(x, y, width, height) {
-        	Shape.call(this, x, y);
-        	this._width = width;
+            Shape.call(this, x, y);
+            this._width = width;
             this._height = height;
         }
         Rect.prototype = new Shape();
         Rect.prototype.serialize = function() {
-        	var serializedRect = Shape.prototype.serialize.call(this);
+            var serializedRect = Shape.prototype.serialize.call(this);
             serializedRect.width = this._width;
             serializedRect.height = this._height;
-        	return serializedRect;
+            return serializedRect;
         }
     	return Rect;
     }());
@@ -856,7 +856,7 @@ Copy the code from [here](https://github.com/b-slavov/JavaScript/blob/master/lib
 
 ```javascript
 (function() {
-	require('libs/simple-inheritance');
+    require('libs/simple-inheritance');
     // Create "class":
     var Shape = Class.extend({
         init: function(x, y) {
@@ -900,7 +900,7 @@ Every JavaScript object has a property ```__proto__```. It can be used to access
 
 ```javascript
 var animal = { // it's lower case, because it's not function constructor
-	makeNoise: function () { console.log(this.type + ' says: '  + this.noise); }
+    makeNoise: function () { console.log(this.type + ' says: '  + this.noise); }
 };
 var dog = { type: 'dog', noise: 'woof' };
 dog.__proto__ = animal;
@@ -915,7 +915,7 @@ ES5 introduces a method for setting the prototype of an object - ```Object.creat
 
 ```javascript
 var animal = {
-	makeNoise: function () { console.log(this.type + ' says: '  + this.noise); }
+    makeNoise: function () { console.log(this.type + ' says: '  + this.noise); }
 };
 var dog = Object.create(animal);
 dog.type = 'dog';
@@ -929,7 +929,7 @@ Object.create() is great, but it is kind of sloppy to set properties with ```.``
 
 ```javascript
 var animal = {
-	makeNoise: function () { console.log(this.type + ' says: '  + this.noise); }
+    makeNoise: function () { console.log(this.type + ' says: '  + this.noise); }
 };
 var dog = Object.defineProperties(animal, {
     type: { value: 'dog' },
@@ -948,14 +948,14 @@ var animal = {
 };
 
 var dog = (function () {
-	var dog = Object.create(animal);
-	function someHiddenFunction() { /* no outer access */ }
-	Object.defineProperties(dog, {
-		type: { value: 'dog' },
-		noise: { value: 'woof' },
-		bark: { value: function () { console.log('Bark, bark'); } }
+    var dog = Object.create(animal);
+    function someHiddenFunction() { /* no outer access */ }
+        Object.defineProperties(dog, {
+	    type: { value: 'dog' },
+	    noise: { value: 'woof' },
+	    bark: { value: function () { console.log('Bark, bark'); } }
 	});
-	return dog;
+    return dog;
 }());
 
 dog.makeNoise();
@@ -968,55 +968,55 @@ It is crucial to any object-oriented design. Thankfully there are ```Function.pr
 
 ```javascript
 var animal = (function () { // this is a prototype, which will be instantiated by Object.create
-	var animal = {
-		init: function(name, age) { // this is function constructor
-			this.name = name;
-			this.age = age;
-			return this;
-		},
-		get name() {
-			return this._name;
-		},
-		set name(value) {
-			if (value.length < 3) {
-				throw new Error('Name should be longer than 3 symbols!');
-			}
-			this._name = value;
-		},
-		toString: function () {
-			return this.name + ', ' + this.age;
-		}
+    var animal = {
+	init: function(name, age) { // this is function constructor
+	    this.name = name;
+	    this.age = age;
+	    return this;
+	},
+	get name() {
+	    return this._name;
+	},
+	set name(value) {
+	    if (value.length < 3) {
+	        throw new Error('Name should be longer than 3 symbols!');
+	    }
+	    this._name = value;
+	},
+	toString: function () {
+	        return this.name + ', ' + this.age;
+	    }
 	}
-	return animal;
+    return animal;
 }());
 
 var dog = (function (parent) {
-	var dog = Object.create(parent);
-	Object.defineProperty(dog, 'init', {
-		value: function (name, age, guard) {
-			parent.init.call(this, name, age);
-			this.guard = guard;
-			return this;
-		}
-	});
-	Object.defineProperty(dog, 'guard', {
-		get: function () {
-			return this._guard;
-		},
-		set: function (value) {
-			if (!value) {
-				console.log(this.name + ' is friendly dog!');
-			}
-			this._guard = value;
-		}
-	});
-	Object.defineProperty(dog, 'toString', {
-		value: function () {
-			var baseResult = parent.toString.call(this);
-			return baseResult + ', guard: ' + this.guard;
-		}
-	});
-	return dog;
+    var dog = Object.create(parent);
+    Object.defineProperty(dog, 'init', {
+        value: function (name, age, guard) {
+	    parent.init.call(this, name, age);
+	    this.guard = guard;
+	    return this;
+	}
+    });
+    Object.defineProperty(dog, 'guard', {
+        get: function () {
+	    return this._guard;
+	},
+	set: function (value) {
+	    if (!value) {
+	        console.log(this.name + ' is friendly dog!');
+	    }
+	    this._guard = value;
+	}
+    });
+    Object.defineProperty(dog, 'toString', {
+        value: function () {
+	    var baseResult = parent.toString.call(this);
+	    return baseResult + ', guard: ' + this.guard;
+	}
+    });
+    return dog;
 }(animal));
 
 var someAnimal = Object.create(animal).init('Rex', 5);
@@ -1032,10 +1032,10 @@ Duck typing (something like polymorphism in other languages) is a layer of progr
 
 ```javascript
 var arrObj = {
-  length: 3,
-  '0': 'One',
-  '1':'Two',
-  '2': 'Three'  
+    length: 3,
+    '0': 'One',
+    '1':'Two',
+    '2': 'Three'  
 };
 var arr = [].slice.call(arrObj);
 console.log(arr); //logs: ["One", "Two", "Three"]
@@ -1044,10 +1044,10 @@ arrObj is not array, but has ```length``` property and indexes to enumerate
 
 ```javascript
 var person = {
-  name: 'John Snow', age: 30,
-  introduce: function () {
-    console.log('Hello! I am ' + this.name + ' and I am ' + this.age + '-years-old');
-  }
+    name: 'John Snow', age: 30,
+    introduce: function () {
+        console.log('Hello! I am ' + this.name + ' and I am ' + this.age + '-years-old');
+    }
 };
 person.introduce();
 person.introduce.call({ name: 'Daenerys Targaryen',  age: 29 });
@@ -1060,51 +1060,40 @@ const petStore = (function () {
 
     class Animal {
         constructor(name, age, sound) {
-            this.name = name;
-            this.age = age;
-            this.sound = sound;
+            this.name = name
+            this.age = age
+            this.sound = sound
         }
-
         get name() {
-            return this._name;
+            return this._name
         }
-
         set name(value) {
             if(typeof value !== 'string' || value.length < 2) {
-                throw new Error('Name must be string value with at least 2 symbols!');
+                throw new Error('Name must be string value with at least 2 symbols!')
             }
-
-            this._name = value;
+            this._name = value
         }
-
         get age() {
-            return this._age;
+            return this._age
         }
-
         set age(value) {
             if(value < 0) {
-                throw new Error('Age cannot be negative number!');
+                throw new Error('Age cannot be negative number!')
             }
-
-            this._age = value;
+            this._age = value
         }
-
         get sound() {
-            return this._sound;
+            return this._sound
         }
-
         set sound(value) {
             if(typeof value !== 'string') {
-                throw new Error('Sound must be string!');
+                throw new Error('Sound must be string!')
             }
-
-            this._sound = value;
+            this._sound = value
         }
-
         makeSound() {
-            console.log(this.sound);
+            console.log(this.sound)
         }
-
         toString() {
             return `${this.name} is ${this.age} years old`
         }
@@ -1112,57 +1101,50 @@ const petStore = (function () {
 
     class Cat extends Animal {
         constructor(name, age, color) {
-            super(name, age, 'Meow');
-
-            this.color = color;
+            super(name, age, 'Meow')
+            this.color = color
         }
-
         toString() {
-            return `${super.toString()} ${this.color} cat`;
+            return `${super.toString()} ${this.color} cat`
         }
     }
 
     class Hydra extends Animal {
         constructor(name, age, headsCount) {
-            super(name, age, 'Rawr');
-
+            super(name, age, 'Rawr')
             if(headsCount < 2) {
-                throw new Error('Hydra must have at least 2 heads!');
+                throw new Error('Hydra must have at least 2 heads!')
             }
-
-            this._headsCount = headsCount;
+            this._headsCount = headsCount
         }
-
         get headsCount() {
-            return this._headsCount;
+            return this._headsCount
         }
-
         growHead() {
-            this._headsCount += 1;
-            this.makeSound();
+            this._headsCount += 1
+            this.makeSound()
         }
-
         toString() {
-            return `${super.toString()} and is a hydra with ${this.headsCount} heads!`;
+            return `${super.toString()} and is a hydra with ${this.headsCount} heads!`
         }
     }
 
     return {
         getCat: function(name, age, color) {
-            return new Cat(name, age, color);
+            return new Cat(name, age, color)
         },
         getHydra: function(name, age, headsCount) {
-            return new Hydra(name, age, headsCount);
+            return new Hydra(name, age, headsCount)
         }
-    };
-}());
+    }
+}())
 
-const tom = petStore.getCat('Tom', 2, 'gray');
-const gurdun = petStore.getHydra('Gurdun', 1000, 5);
+const tom = petStore.getCat('Tom', 2, 'gray')
+const gurdun = petStore.getHydra('Gurdun', 1000, 5)
 
-tom.makeSound();
-console.log(tom.toString());
+tom.makeSound()
+console.log(tom.toString())
 
-gurdun.makeSound();
-console.log(gurdun.toString());
+gurdun.makeSound()
+console.log(gurdun.toString())
 ```
