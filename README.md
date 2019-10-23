@@ -151,7 +151,7 @@ let child = document.getElementById('post-1');
 
 parent.addEventListener('click', function() {
     console.log('Parent clicked')
-},true)
+}, true)
 
 child.addEventListener('click', function() {
     console.log('Child clicked')
