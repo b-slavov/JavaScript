@@ -97,13 +97,13 @@ It allows you to avoid adding event listeners to specific nodes. Instead, the ev
 
 ```html
 <html>
-<body>
+    <body>
 	<ul id="parent-list">
-		<li id="post-1">Item 1</li>
-		<li id="post-2">Item 2</li>
-		<li id="post-3">Item 3</li>
+	    <li id="post-1">Item 1</li>
+	    <li id="post-2">Item 2</li>
+	    <li id="post-3">Item 3</li>
 	</ul>
-</body>
+    </body>
 </html>
 ```
 
@@ -111,11 +111,17 @@ It allows you to avoid adding event listeners to specific nodes. Instead, the ev
 
 ```javascript
 document.getElementById('parent-list').addEventListener('click', function(e) {
-	if(e.target && e.target.nodeName == 'LI') {
-		alert(`List item ${e.target.id.replace('post-', '')} was clicked!`)
-	}
+    if (e.target && e.target.nodeName == 'LI') {
+        alert(`List item ${e.target.id.replace('post-', '')} was clicked!`)
+    }
 })
 ```
+
+## Event Flow
+
+1. Event Capturing
+2. Event Target
+3. Event Bubbling
 
 ### Event propagation (bubbling)
 
@@ -126,6 +132,31 @@ Any time one of our li elements is clicked, a **click** event is fired for that 
  * ```<body>```
  * ```<html>```
  * *document* root
+
+If you want to stop the event flow from event target to top element in DOM, `event.stopPropagation()` method.
+
+### Event Capturing
+
+The reversed flow - when the event starts from the top element and goes to the target element. Modern browsers doesn’t support event capturing by default but it can achieved by JavaScript.
+
+ * *document* root
+ * ```<html>```
+ * ```<body>```
+ * ```<ul #parent-list>```
+ * ```<li #post-1>```
+
+```
+let parent = document.getElementById('parent-list')
+let child = document.getElementById('post-1');
+
+parent.addEventListener('click', function() {
+    console.log('Parent clicked')
+},true)
+
+child.addEventListener('click', function() {
+    console.log('Child clicked')
+})
+```
 
 ## Data attributes
 
