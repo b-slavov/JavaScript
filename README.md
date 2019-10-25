@@ -147,7 +147,7 @@ The reversed flow - when the event starts from the top element and goes to the t
 
 ```javascript
 let parent = document.getElementById('parent-list')
-let child = document.getElementById('post-1');
+let child = document.getElementById('post-1')
 
 parent.addEventListener('click', function() {
     console.log('Parent clicked')
