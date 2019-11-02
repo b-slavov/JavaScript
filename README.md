@@ -86,7 +86,7 @@ elem.innerHTML = x + " " + y;           // Display x and y (y is undefined)
 var y = 7;                              // Initialize y
 ```
 
-# Hoisting order:
+### Hoisting order:
 1. Function **definitions** - not only declaring the name, but also their value.
 2. Variable declarations - but not their initialisation (if there is one). A `var` declaration is without effect if the name is already taken by a function or other `var` declaration.
 
