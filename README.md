@@ -54,10 +54,9 @@ var add = (function () {
     	return counter += 1
     }
 })()
-add()
-add()
-add()
-// counter = 3
+add() // counter = 1
+add() // counter = 2
+add() // counter = 3
 ```
 
 The variable add is assigned the return value of a self-invoking function. The self-invoking function only runs once. It sets the counter to zero (0), and returns a function expression. This way add becomes a function. The "wonderful" part is that it can access the counter in the parent scope. This is called a JavaScript closure. It makes it possible for a function to have "private" variables. The counter is protected by the scope of the anonymous function, and can only be changed using the add function.
@@ -81,13 +80,17 @@ var x // Declare x
 In the following example y will be undefined, because only the declaration (var y), not the initialization (=7) is hoisted to the top.
 
 ```javascript
-var x = 5; // Initialize x
+var x = 5;                              // Initialize x
 elem = document.getElementById("demo"); // Find an element 
 elem.innerHTML = x + " " + y;           // Display x and y (y is undefined)
-var y = 7; // Initialize y
+var y = 7;                              // Initialize y
 ```
 
-In strict mode, JavaScript does not allow variables to be used if they are not declared. To avoid bugs, always declare all variables at the beginning of every scope.
+# Hoisting order:
+1. Function **definitions** - not only declaring the name, but also their value.
+2. Variable declarations - but not their initialisation (if there is one). A `var` declaration is without effect if the name is already taken by a function or other `var` declaration.
+
+*In **strict mode**, JavaScript does not allow variables to be used if they are not declared. To avoid bugs, always declare all variables at the beginning of every scope.*
 
 ## Event delegation
 
