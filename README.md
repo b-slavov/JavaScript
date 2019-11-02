@@ -63,7 +63,6 @@ The variable add is assigned the return value of a self-invoking function. The s
 
 **A closure is a function having access to the parent scope, even after the parent function has closed.**
 
-
 ## Hoisting
 
 This is JavaScript's default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function).
@@ -71,10 +70,10 @@ This is JavaScript's default behavior of moving all declarations to the top of t
 A variable can be used before it has been declared.
 
 ```javascript
-x = 5 // Assign 5 to x
+x = 5                                  // Assign 5 to x
 elem = document.getElementById('demo') // Find an element 
 elem.innerHTML = x                     // Display x in the element
-var x // Declare x
+var x                                  // Declare x
 ```
 
 In the following example y will be undefined, because only the declaration (var y), not the initialization (=7) is hoisted to the top.
@@ -87,8 +86,22 @@ var y = 7;                              // Initialize y
 ```
 
 ### Hoisting order:
-1. Function **definitions** - not only declaring the name, but also their value.
-2. Variable declarations - but not their initialisation (if there is one). A `var` declaration is without effect if the name is already taken by a function or other `var` declaration.
+* Function **declaration** not only declaring the name, but also their value. They are hoisted over variable declarations but not over variable assignments.
+* Variable declaration - but not initialisation (if there is one). A `var` declaration is without effect if the name is already taken by a function or other `var` declaration.
+
+```javascript
+var a = 1
+function a(n) { return (n*n) }
+
+console.log(typeof a); // number
+```
+
+```javascript
+var a
+function a(n) { return (n*n) }
+
+console.log(typeof a); // function
+```
 
 *In **strict mode**, JavaScript does not allow variables to be used if they are not declared. To avoid bugs, always declare all variables at the beginning of every scope.*
 
