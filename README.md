@@ -1,6 +1,67 @@
 # JavaScript
 ![alt text](https://github.com/b-slavov/JavaScript/blob/master/js.png "JavaScript Logo")
 
+## Execution Context Structure
+
+It can be represented as an object with three properties:
+```javascript
+ExecutionContext = {
+    ThisBinding: <this>,
+    LexicalEnvironment: { ... },
+    VariableEnvironment: { ... }
+}
+```
+
+### This binding
+
+* In the global execution context, `this` holds a reference to the global object. In the browser, it’s a `window` object.
+
+```javascript
+function global() {
+    console.log(this)
+}
+global() // Window { ... }
+```
+
+* In the function execution context, if the function is called as a method of an object, the value of `this` is set to that object. Otherwise, the value of `this` is set to the global object or undefined (in strict mode).
+
+```javascript
+const object = {
+    method: function() {
+        console.log(this)
+    }
+}
+object.method() // Object { ... }
+```
+
+* When using an arrow function, `this` is not bound at all. It just inherits from the parent execution context (callee).
+
+```javascript
+const object = {
+    arrowFnMethod: () => {
+        console.log(this) // parent context is global
+    }
+    methodWithArrowFn: function() {
+        const arrowFn = () => console.log(this)
+	arrowFn() // parent context is function
+    }
+}
+object.arrowFnMethod()     // Window { ... }
+object.methodWithArrowFn() // Object { ... }
+```
+
+### Lexical environment
+
+Consists of two entries:
+* Environment Record — a structure that maps identifiers to their values within the scope of its associated Lexical Environment. Such records store values of identifiers declared with `let` or `const` keywords.
+* Outer reference — holds a reference to the parent Lexical Environment. It means that the JavaScript engine can look for variables inside the outer environment if they are not found in the current Lexical Environment.
+
+### Variable environment
+
+*The LexicalEnvironment and VariableEnvironment components of an execution context are always Lexical Environments. Variable Environment identifies the Lexical Environment whose EnvironmentRecord holds bindings created by VariableStatements within this execution context.*
+
+In other words, Variable Environment stores identifier-value mappings declared with the `var` keyword within its execution context.
+
 ## Scope
 
 This is a set of variables, objects, and functions you have access to. JavaScript has function scope: The scope changes inside functions.
