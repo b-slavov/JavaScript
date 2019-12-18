@@ -570,29 +570,80 @@ Promise.race([request1, request2]).then(function (one) {
 
 A use case could be triggering a request to a primary source and a secondary source (in case the primary or secondary are unavailable).
 
-## Classical (Functional) Inheritance
+## Classical (Functional) Inheritance with ES5
 
 JavaScript uses functions to create objects. There is no definition for class or constructor. Functions play the role of object constructors. We can create object by calling the function with the "new" keyword.
 
 ### Creating objects
 
 ```javascript
-function Animal() {}
-var dog = new Animal(); // instance of Animal
-var cat = new Animal(); // instance of Animal
-```
-
-Each instance is independent and has its own state and behavior. Function constructors can take parameters to give instances different state.
-
-```javascript
-function Animal(name, age) {
-    this.name = name; 
-    this.age = age;
+function Shape(x, y) {
+  this.x = x;
+  this.y = y;
 }
-var dog = new Animal('Rex', 5);
-console.log(dog.name); // logs: Rex
-var cat = new Animal('Tea', 3);
-console.log(cat.age); // logs: 3
+
+Shape.prototype.move = function(x, y) {
+  this.x += x;
+  this.y += y;
+}
+
+function Circle(x, y, r) {
+  Shape.call(this, x, y);
+  this.r = r;
+}
+
+Circle.prototype = Object.create(Shape.prototype); // sets up the prototype chain (each Circle has a Shape as its prototype)
+Circle.prototype.constructor = Circle; // the assignment to Circle.prototype kills its existing constructor, so we restore it
+
+Circle.prototype.area = function() {
+  return this.r * 2 * Math.PI;
+}
+
+// Console:
+
+> var shp = new Shape(1, 2)
+undefined
+> [shp.x, shp.y]
+[1, 2]
+> shp.move(1, 1)
+undefined
+> [shp.x, shp.y]
+[2, 3]
+
+> var cir = new Circle(5, 6, 2)
+undefined
+> [cir.x, cir.y, cir.r]
+[5, 6, 2]
+> cir.move(1, 1)
+undefined
+> [cir.x, cir.y, cir.r]
+[6, 7, 2]
+> cir.area()
+12.566370614359172
+
+> var shape_proto = Object.getPrototypeOf(shp)
+undefined
+> var circle_proto = Object.getPrototypeOf(cir)
+undefined
+> Object.getPrototypeOf(circle_proto) === shape_proto
+true
+
+> cir instanceof Shape
+true
+> cir instanceof Circle
+true
+> shp instanceof Shape
+true
+> shp instanceof Circle
+false
+
+> cir.constructor === Circle
+true
+// Create a new Circle object based on an existing Circle instance
+> var new_cir = new cir.constructor(3, 4, 1.5)
+undefined
+> new_cir
+Circle {x: 3, y: 4, r: 1.5, constructor: function, area: function}
 ```
 
 ### Prototypes
@@ -1130,7 +1181,7 @@ person.introduce();
 person.introduce.call({ name: 'Daenerys Targaryen',  age: 29 });
 ```
 
-## Inheritance in ES6
+## Inheritance with ES6
 
 ```javascript
 const petStore = (function () {
